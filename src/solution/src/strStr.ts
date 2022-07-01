@@ -47,7 +47,6 @@ export function strStrKMP(haystack, needle) {
     if(haystack[i] == needle[j]) {
       j++
     }
-    console.log(i, j, 'key变化')
     if(j === nl) {
       return i - nl + 1
     }
