@@ -1,9 +1,9 @@
 export class ListNode {
-  public data?: any
-  public next?: null | any
+  public val!: any
+  public next!: null | any
 
-  constructor(data) {
-    this.data = data
+  constructor(val) {
+    this.val = val
     this.next = null
   }
 }
@@ -32,7 +32,7 @@ export class singleLinked {
     var currentNode = this.head
     // 如果当前节点不为空，表明当前节点中存在数据
     while (currentNode) {
-      list += currentNode.data
+      list += currentNode.val
       currentNode = currentNode.next // 让节点指向下一个节点
       if(currentNode) {
         list += '->'
