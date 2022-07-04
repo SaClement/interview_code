@@ -16,5 +16,5 @@ export function mySqrt(sqrt: number) {
         }
         sqrtO = sqrtI;
     }
-    return sqrtO
+    return Math.floor(sqrtO)
 }

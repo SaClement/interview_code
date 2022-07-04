@@ -8,15 +8,15 @@ export class ListNode {
   }
 }
 
-export class singleLinked {
-  private size: number
+export class singlyLinked{
+  public size: number
   public head: ListNode
-  public currentNode
+  public currentNode: ListNode
 
   constructor() {
     this.size = 0 //记录单链表的长度或节点个数 
     this.head = new ListNode("head") // 记录链表的头指针，主要作用记录链表的起始地址
-    this.currentNode = "" // 用来记录当前节点
+    this.currentNode = new ListNode("") // 用来记录当前节点
   }
 
   getLength() { // 获取链表长度
@@ -38,7 +38,6 @@ export class singleLinked {
         list += '->'
       }
     }
-    console.log(list);
   }
 
   findLast() { //获取链表最后一个节点
