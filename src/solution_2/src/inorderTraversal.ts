@@ -1,3 +1,4 @@
+import { BinarySearchTree } from "../../utils/BinarySearchTree";
 import { Node } from "../../utils/Node";
 
 /**
@@ -5,14 +6,14 @@ import { Node } from "../../utils/Node";
  * @param root 根节点
  * @returns 
  */
-export function inorderTraversal(root: Node<T>) {
-  const res = [];
+export function inorderTraversal(root: Node<number>) {
+  const res = new BinarySearchTree();
   const inorder = (root) => {
     if (!root) {
       return
     }
     inorder(root.left);
-    res.push(root.value);
+    res.insert(root.key);
     inorder(root.right);
   }
   inorder(root);
@@ -20,8 +21,8 @@ export function inorderTraversal(root: Node<T>) {
 }
 
 export function iterationInorderTraversal(root) {
-  const res = []; // 结果
-  const stk = []; // 栈空间
+  const res: Array<any> = []; // 结果
+  const stk: Array<any> = []; // 栈空间
   while (root || stk.length) {
     while (root) {
       stk.push(root);
@@ -37,8 +38,8 @@ export function iterationInorderTraversal(root) {
 
 // morris中序
 export function morrisInorderTraversal(root) {
-  const res = [];
-  let predecessor = null;
+  const res: Array<any> = [];
+  let predecessor: Node<T> = new Node(root.key);
 
   while (root) {
     if (root.left) {
@@ -53,7 +54,7 @@ export function morrisInorderTraversal(root) {
         root = root.left
       } else {
         res.push(root.val);
-        predecessor.right = null;
+        predecessor.right = undefined;
         root = root.right;
       }
     }else{
