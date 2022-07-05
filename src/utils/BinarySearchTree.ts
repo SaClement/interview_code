@@ -1,31 +1,32 @@
 import { Node } from "./Node";
 
-export type ICompareFunction<T> = (a: T, b: T) => number;
-
-interface Compare {
-  EQUALS: 1,
-  BIGGER_THAN: 2,
-  LESS_THAN: 3
+export enum Compare {
+  EQUALS = 0,
+  BIGGER_THAN =  1,
+  LESS_THAN = -1
 }
+
+export type ICompareFunction<T> = (a: T, b: T) => number;
 
 export function defaultCompare<T>(a: T, b: T) {
   if (a === b) {
     return Compare.EQUALS;
-  } else if (a > b) {
-    return Compare.BIGGER_THAN;
-  } else {
-    return Compare.LESS_THAN;
-  }
+  } 
+  return a < b ? Compare.LESS_THAN : Compare.BIGGER_THAN;
 }
 
 export class BinarySearchTree {
-  protected root: Node<T> | undefined
+  protected root: Node<any> | undefined
 
-  constructor(protected compareFn: ICompareFunction<T> = defaultCompare) {
+  constructor(protected compareFn: ICompareFunction<any> = defaultCompare) {
     this.root = undefined;
   }
 
-  insert(key: T) {
+  getRoot(): Node<any> | undefined {
+    return this.root;
+  }
+
+  insert(key: any) {
     if (this.root == null) {
       this.root = new Node(key); //如果根节点不存在则直接新建一个节点
     } else {
@@ -33,7 +34,7 @@ export class BinarySearchTree {
     }
   }
 
-  protected insertNode(node: Node<T>, key: T) {
+  protected insertNode(node: Node<any>, key: any) {
     if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
       if (node.left == null) {
         node.left = new Node(key); // 如果当前节点的左节点为空直接插入
@@ -49,28 +50,28 @@ export class BinarySearchTree {
     }
   }
 
-  search(key: T) {
-    return this.searchNode(<Node<T>>this.root, key);
+  search(key: any) {
+    return this.searchNode(<Node<any>>this.root, key);
   }
 
-  protected searchNode(node: Node<T>, key: T): boolean | Node<T> {
+  protected searchNode(node: Node<any>, key: any): boolean | Node<any> {
     if (node == null) {
       return false
     }
     if (this.compareFn(key, node.key) === Compare.LESS_THAN) {
-      return this.searchNode(<Node<T>>node.left, key);
+      return this.searchNode(<Node<any>>node.left, key);
     } else if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) {
-      return this.searchNode(<Node<T>>node.right, key);
+      return this.searchNode(<Node<any>>node.right, key);
     } else {
       return true;
     }
   }
 
   min() {
-    return this.minNode(<Node<T>>this.root);
+    return this.minNode(<Node<any>>this.root);
   }
 
-  protected minNode(node: Node<T>): Node<T> {
+  protected minNode(node: Node<any>): Node<any> {
     let current = node;
     while (current != null && current.left != null) {
       current = current.left
@@ -79,10 +80,10 @@ export class BinarySearchTree {
   }
 
   max() {
-    return this.maxNode(<Node<T>>this.root);
+    return this.maxNode(<Node<any>>this.root);
   }
 
-  protected maxNode(node: Node<T>) {
+  protected maxNode(node: Node<any>) {
     let current = node;
     while (current != null && current.right != null) {
       current = current.right;
@@ -90,11 +91,11 @@ export class BinarySearchTree {
     return current;
   }
 
-  remove(key: T) {
-    this.removeNode(<Node<T>>this.root, key);
+  remove(key: any) {
+    this.removeNode(<Node<any>>this.root, key);
   }
 
-  protected removeNode(node: Node<T> | null, key: T) {
+  protected removeNode(node: Node<any> | null, key: any) {
     // 正在检测的节点为null，即键不存在于树中
     if (node == null) {
       return null;
@@ -102,10 +103,10 @@ export class BinarySearchTree {
 
     // 不为null,需要在树中找到要移除的键
     if (this.compareFn(key, node.key) === Compare.LESS_THAN) { // 目标key小于当前节点的值则沿着树的左边找
-      node.left = <Node<T>>this.removeNode(<Node<T>>node.left, key);
+      node.left = <Node<any>>this.removeNode(<Node<any>>node.left, key);
       return node;
     } else if (this.compareFn(key, node.key) === Compare.BIGGER_THAN) { // 目标key大于当前节点的值则沿着树的右边找
-      node.right = <Node<T>>this.removeNode(<Node<T>>node.right, key);
+      node.right = <Node<any>>this.removeNode(<Node<any>>node.right, key);
       return node;
     } else {
       // 键等于key,需要处理三种情况
@@ -116,7 +117,7 @@ export class BinarySearchTree {
 
       if (node.left == null) { // 移除一个左侧子节点的节点
         // node有一个右侧子节点，因此需要把对它的引用改为对它右侧子节点的引用
-        node = <Node<T>>node.right;
+        node = <Node<any>>node.right;
         // 返回更新后的节点
         return node;
       } else if (node.right == null) { // 移除一个右侧子节点的节点
@@ -128,46 +129,46 @@ export class BinarySearchTree {
       const aux = this.minNode(node.right); // 当找到了要移除的节点后,需要找到它右边子树最小的节点,即它的继承者
       node.key = aux.key; // 用右侧子树最小的节点的键去更新node的键
       // 更新完node的键后，树中存在了两个相同的键，因此需要移除多余的键
-      node.right = <Node<T>>this.removeNode(node.right, aux.key) // 移除右侧子树中的最小节点
+      node.right = <Node<any>>this.removeNode(node.right, aux.key) // 移除右侧子树中的最小节点
       return node; // 返回更新后的节点
     }
   }
 
   // 中序遍历
   inOrderTraverse(callback: Function) {
-    this.inOrderTraverseNode(<Node<T>>this.root, callback);
+    this.inOrderTraverseNode(<Node<any>>this.root, callback);
   }
 
-  private inOrderTraverseNode(node: Node<T>, callback: Function) {
+  private inOrderTraverseNode(node: Node<any>, callback: Function) {
     if (node != null) {
-      this.inOrderTraverseNode(<Node<T>>node.left, callback);
+      this.inOrderTraverseNode(<Node<any>>node.left, callback);
       callback(node.key);
-      this.inOrderTraverseNode(<Node<T>>node.right, callback);
+      this.inOrderTraverseNode(<Node<any>>node.right, callback);
     }
   }
 
   // 先序遍历
   preOrderTraverse(callback: Function) {
-    this.preOrderTraverseNode(<Node<T>>this.root, callback);
+    this.preOrderTraverseNode(<Node<any>>this.root, callback);
   }
 
-  private preOrderTraverseNode(node: Node<T>, callback: Function) {
+  private preOrderTraverseNode(node: Node<any>, callback: Function) {
     if (node != null) {
       callback(node.key);
-      this.preOrderTraverseNode(<Node<T>>node.left, callback);
-      this.preOrderTraverseNode(<Node<T>>node.right, callback);
+      this.preOrderTraverseNode(<Node<any>>node.left, callback);
+      this.preOrderTraverseNode(<Node<any>>node.right, callback);
     }
   }
 
   // 后序遍历
   postOrderTraverse(callback: Function) {
-    this.postOrderTraverseNode(<Node<T>>this.root, callback);
+    this.postOrderTraverseNode(<Node<any>>this.root, callback);
   }
 
-  private postOrderTraverseNode(node: Node<T>, callback: Function) {
+  private postOrderTraverseNode(node: Node<any>, callback: Function) {
     if (node != null) {
-      this.postOrderTraverseNode(<Node<T>>node.left, callback);
-      this.postOrderTraverseNode(<Node<T>>node.right, callback);
+      this.postOrderTraverseNode(<Node<any>>node.left, callback);
+      this.postOrderTraverseNode(<Node<any>>node.right, callback);
       callback(node.key);
     }
   }
