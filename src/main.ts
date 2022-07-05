@@ -1,1 +1,1 @@
-export * from './solution/src'
+export * from './solution_1/src'
