@@ -1,6 +1,6 @@
-export class ListNode {
-  public val!: any
-  public next!: null | any
+export class ListNode<T> {
+  public val!: T
+  public next!: ListNode<T> | null
 
   constructor(val) {
     this.val = val
@@ -10,8 +10,8 @@ export class ListNode {
 
 export class singlyLinked{
   public size: number
-  public head: ListNode
-  public currentNode: ListNode
+  public head: ListNode<number>
+  public currentNode: ListNode<number>
 
   constructor() {
     this.size = 0 //记录单链表的长度或节点个数 
@@ -33,7 +33,7 @@ export class singlyLinked{
     // 如果当前节点不为空，表明当前节点中存在数据
     while (currentNode) {
       list += currentNode.val
-      currentNode = currentNode.next // 让节点指向下一个节点
+      currentNode = <ListNode<number>>currentNode.next // 让节点指向下一个节点
       if(currentNode) {
         list += '->'
       }
@@ -51,7 +51,7 @@ export class singlyLinked{
   appendNode(element) {
     let currNode = this.findLast() // 找到最后一个节点
     let newNode = new ListNode(element) // 新建一个链表节点
-    currNode.next = newNode // 把新建的节点加载最后一个节点的后面
+    currNode.next = <ListNode<number>>newNode // 把新建的节点加载最后一个节点的后面
     newNode.next = null // 新节点已经是最后一个节点了
 
     this.size++ // 因为新加入一个节点，所以原来的链表长度+1
@@ -59,10 +59,10 @@ export class singlyLinked{
 
   deleteList(element) {
     let currNode = this.head;
-    while (currNode.next.data !== element) {
-      currNode = currNode.next;
+    while (currNode.next?.val !== element) {
+      currNode = <ListNode<number>>currNode.next;
     }
-    currNode.next = currNode.next.next;
+    currNode.next = <ListNode<number>>currNode.next?.next;
     this.size--
   }
 }

@@ -133,7 +133,7 @@ export class singlyLinkedList {
 
   display(): void {
     let currentNode = this.head;
-    while(currentNode) {
+    while (currentNode) {
       console.log(currentNode.data);
       currentNode = currentNode.next;
     }
@@ -142,5 +142,22 @@ export class singlyLinkedList {
   clear(): void {
     this.head.next = null;
     this.size = 0
+  }
+}
+
+// 双向链表
+export class DoublyLinkedList {
+  head: ListNode | any = null
+  tail: ListNode | any = null
+  size: number = 0
+  currentNode: ListNode | null = null
+
+  constructor() {
+    this.head = new ListNode('head');
+    this.tail = new ListNode('tail')
+  }
+
+  insert() {
+
   }
 }
