@@ -1,1 +1,3 @@
-export * from './hash';
+export * from './Hash';
+export * from './BinaryTree';
+export * from './LinkedList';

@@ -1,6 +1,6 @@
-export class Node<K> {
-  public left: Node<K> | undefined;
-  public right: Node<K> | undefined;
+export class TreeNode<K> {
+  public left: TreeNode<K> | undefined;
+  public right: TreeNode<K> | undefined;
   
   constructor(public key: K){
     this.left = undefined;

@@ -1,12 +1,11 @@
-import { BinarySearchTree } from "../../utils/BinarySearchTree";
-import { Node } from "../../utils/Node";
+import { TreeNode, BinarySearchTree } from "../../utils";
 
 /**
  * 递归 - 中序遍历
  * @param root 根节点
  * @returns 
  */
-export function inorderTraversal(root: Node<number>) {
+export function inorderTraversal(root: TreeNode<any>) {
   const res = new BinarySearchTree();
   const inorder = (root) => {
     if (!root) {
@@ -39,7 +38,7 @@ export function iterationInorderTraversal(root) {
 // morris中序
 export function morrisInorderTraversal(root) {
   const res: Array<any> = [];
-  let predecessor: Node<T> = new Node(root.key);
+  let predecessor: TreeNode<any> = new TreeNode(root.key);
 
   while (root) {
     if (root.left) {
@@ -57,7 +56,7 @@ export function morrisInorderTraversal(root) {
         predecessor.right = undefined;
         root = root.right;
       }
-    }else{
+    } else {
       res.push(root.val);
       root = root.right;
     }

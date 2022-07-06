@@ -9,10 +9,10 @@ export class hashTable {
     this.limit = 7
   }
 
-  hashFunc(str:string, size:number) {
+  hashFunc(str: string, size: number) {
     var hashCode = 0
-    
-    for(let i = 0; i < str.length; i++) {
+
+    for (let i = 0; i < str.length; i++) {
       hashCode = 37 * hashCode + str.charCodeAt(i)
       // console.log(hashCode);
     }
@@ -21,7 +21,7 @@ export class hashTable {
     return index
   }
 
-  put(key:string, value:number) {
+  put(key: string, value: number) {
     // 1.使用哈希函数获取我们在storage的对应位置index
     var index = this.hashFunc(key, this.limit)
     // 2.根据index取出我们的bucket
@@ -43,7 +43,7 @@ export class hashTable {
     bucket.push([key, value]);
     this.count += 1;
     // 6.判断是否扩容 
-    if(this.count > this.limit * 0.75) {
+    if (this.count > this.limit * 0.75) {
       var newsize = this.limit * 2
       var newnum = this.getPrime(newsize);
       // 重置
@@ -63,7 +63,7 @@ export class hashTable {
     for (var i = 0; i < bucket.length; i++) {
       var element = bucket[i];
       if (element[0] == key) {
-          return element[1]
+        return element[1]
       }
     }
     return null
@@ -72,16 +72,16 @@ export class hashTable {
   remove(key: string) {
     var index = this.hashFunc(key, this.limit);
     var bucket = this.storage[index]
-    if(bucket == null) {
+    if (bucket == null) {
       return null;
     }
 
-    for (let i = 0; i< bucket.length; i++) {
+    for (let i = 0; i < bucket.length; i++) {
       var element = bucket[i];
-      if(element[0] == key) {
+      if (element[0] == key) {
         bucket.splice(i, 1);
         this.count -= 1;
-        
+
         if (this.limit > 7 && this.count < this.limit * 0.25) {
           this.resize(Math.floor(this.limit / 2));
         }
@@ -106,11 +106,11 @@ export class hashTable {
     for (let i = 0; i < oldStorage.length; i++) {
       var bucket = oldStorage[i]
       // 4.若没有数据就continue
-      if(bucket == null) {
+      if (bucket == null) {
         continue;
       }
 
-      for(var j = 0; j<bucket.length; j++) {
+      for (var j = 0; j < bucket.length; j++) {
         var element: any = element[j];
         this.put(element[0], element[1])
       }
@@ -118,10 +118,10 @@ export class hashTable {
   }
 
   // 判断是否是质数
-  isPrime (num: number) {
+  isPrime(num: number) {
     var temp = Math.sqrt(num);
-    for (let i = 2; i<=temp; i++) {
-      if ( num % i == 0) {
+    for (let i = 2; i <= temp; i++) {
+      if (num % i == 0) {
         return false;
       }
     }
