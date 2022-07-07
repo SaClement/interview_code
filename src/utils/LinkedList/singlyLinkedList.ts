@@ -145,6 +145,106 @@ export class singlyLinkedList {
   }
 }
 
+// 实现单循环链表
+export class circularLikedNode extends singlyLinkedList {
+  constructor() {
+    super()
+  }
+
+  findLast(): ListNode {
+    // 使用count来计算链表的长度
+    let count = 0;
+    let currNode = this.head;
+    while (currNode.next) {
+      currNode = currNode.next;
+      count++;
+      // 当计算的长度等于链表的长度时，即为最后一个节点
+      if (count === this.size) {
+        return currNode;
+      }
+    }
+    return this.head;
+  }
+
+  find(item: any): ListNode {
+    let lastNode = this.findLast();
+    let currNode = this.head;
+    while (currNode.data !== item) {
+      // 如果当前节点等于最后一个子节点，即为没有找到，返回null
+      if (currNode == lastNode) {
+        currNode = null;
+        break;
+      }
+      currNode = currNode.next;
+    }
+    return currNode;
+  }
+
+  insert(item: any, element: any) {
+    let newNode = new ListNode(element);
+    let itemNode = this.find(item);
+    let lastNode = this.findLast();
+    // 如果item是头结点，那么就直接插入，并且自己指向自己
+    if (item === 'head') {
+      if (this.size === 0) {
+        this.head.next = newNode;
+        newNode.next = newNode;
+      } else {
+        // 如果当前链表不为空，将新节点指向头节点的下一个节点，然后将头节点指向新节点，尾节点指向新节点
+        newNode.next = this.head.next
+        this.head.next = newNode;
+        lastNode.next = newNode;
+      }
+      this.size++;
+      return;
+    }
+    // 不是头结点的情况下，直接正常插入
+    newNode.next = itemNode.next;
+    itemNode.next = newNode;
+    this.size++
+  }
+
+  remove(item: any): void {
+    let lastNode = this.findLast();
+    let itemNode = this.find(item);
+    let preCurNode = this.head;
+    while (preCurNode.next !== itemNode) {
+      preCurNode = preCurNode.next
+    }
+    if (itemNode === this.head.next) {
+      if (this.size === 1) {
+        this.head.next = null;
+      } else {
+        this.head.next = itemNode.next;
+        lastNode.next = itemNode.next
+      }
+    } else {
+      preCurNode.next = itemNode.next;
+    }
+    this.size--;
+  }
+
+  display(): void {
+    let count = 0;
+    let currNode = this.head;
+    let str = "";
+    while (count !== this.size) {
+      currNode = currNode.next;
+      str += currNode.data + '=>';
+      count++;
+    }
+    console.log(str);
+  }
+
+  append(element: any): void {
+    let lastNode = this.findLast();
+    let newNode = new ListNode(element);
+    lastNode.next = newNode;
+    newNode.next = this.head.next;
+    this.size++;
+  }
+}
+
 // 双向链表
 export class DoublyLinkedList {
   head: ListNode | any = null
