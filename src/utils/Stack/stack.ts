@@ -7,7 +7,7 @@ export interface Stack<T> {
   count: number;
   push(element: T): void;
   peek(): T;
-  top(): void | T;
+  peek(): void | T;
   isEmpty(): boolean;
   size(): number;
   clear(): void;
@@ -24,7 +24,7 @@ export class Stack<T> {
     this.items[this.count++] = element
   }
 
-  top(): T {
+  peek(): T {
     return this.items[this.count - 1];
   }
 
