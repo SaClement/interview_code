@@ -1,4 +1,4 @@
-import { TreeNode } from './Node'
-import { BinarySearchTree } from './BinarySearchTree'
+import { TreeNode } from "./Node";
+import { BinarySearchTree } from "./BinarySearchTree";
 
-export { TreeNode, BinarySearchTree}
+export { TreeNode, BinarySearchTree };

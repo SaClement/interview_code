@@ -4,9 +4,14 @@ interface IDequeData<T> {
 
 export class Deque<T> {
   protected data: Map<number, T> // IDequeData<T> = {} 使用Map储存数据
-  protected count: 0 // 队尾的键
-  protected lowestCount: 0 // 队首的键
+  protected count: number // 队尾的键
+  protected lowestCount: number // 队首的键
 
+  constructor() {
+    this.data = new Map();
+    this.count = 0;
+    this.lowestCount = 0;
+  }
   enqueue(element: T) {
     this.data.set(this.count, element);
     this.count++
