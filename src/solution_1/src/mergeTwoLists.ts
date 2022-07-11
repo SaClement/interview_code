@@ -1,4 +1,4 @@
-import { ListNode } from "../../utils/listNode";
+import { ListNode } from "../../utils";
 
 // 拼接两个链表
 export function mergeTwoLists(arrA: Array< string | number >, arrB: Array<string | number>) {
@@ -17,10 +17,10 @@ export function mergeTwoSortedLists (list1: ListNode, list2: ListNode) {
   } else if (list2 === null) {
     return list1;
   } else if (list1.data < list1.data){
-    list1.next = mergeTwoSortedLists(list1.next, list2)
+    list1.next = mergeTwoSortedLists(list1.next as ListNode, list2)
     return list1;
   } else {
-    list2.next = mergeTwoSortedLists(list1, list2.next)
+    list2.next = mergeTwoSortedLists(list1, list2.next as ListNode)
     return list2;
   }
 }

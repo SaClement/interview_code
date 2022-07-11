@@ -16,7 +16,7 @@ export function defaultCompare<T>(a: T, b: T) {
 }
 
 export class BinarySearchTree {
-  protected root: TreeNode<any> | undefined
+  public root: TreeNode<any> | undefined
 
   constructor(protected compareFn: ICompareFunction<any> = defaultCompare) {
     this.root = undefined;
