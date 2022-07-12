@@ -4,8 +4,8 @@ describe("longestCommonPrefix", () => {
   test("lonest common prefix", () => {
     let strArray = ["flower","flow","flight"];
 
-    expect(crossLongestPrefix(strArray)).toBe('fl')
-    expect(directionLongestPrefix(strArray)).toBe('fl')
+    // expect(crossLongestPrefix(strArray)).toBe('fl')
+    // expect(directionLongestPrefix(strArray)).toBe('fl')
     
  })
 })

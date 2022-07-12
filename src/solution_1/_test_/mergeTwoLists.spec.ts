@@ -13,7 +13,7 @@ describe("mergeTwoLists", () => {
     for (let i = 0; i < l2.length; i++) {
       slist2.append(l2[i])
     }
-    console.log(JSON.stringify(mergeTwoSortedLists(slist1.head ,slist2.head)))
+    // console.log(JSON.stringify(mergeTwoSortedLists(slist1.head ,slist2.head)))
 
 
     // expect(mergeTwoSortedLists(slist1.head ,slist2.head)).toEqual([1,1,2,3,4,4])
