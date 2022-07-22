@@ -3,8 +3,8 @@
     "strict": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "target": "es2016",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "CommonJS",
     "noImplicitAny": false,
     "removeComments": true,
     "preserveConstEnums": true,
@@ -13,6 +13,6 @@
     "skipLibCheck": true,
     "lib": ["es6", "DOM"]
   },
-  "include": ["src/main.ts", "src/global.d.ts", "src/*/__tests__",],
+  "include": ["src/main.ts", "src/global.d.ts", "src/*/__tests__","src/**/*.ts"],
   "exclude": []
 }
