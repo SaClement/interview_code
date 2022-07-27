@@ -8,7 +8,7 @@ export function hammingWeight(n: number) {
   return ret
 }
 
-function hammingWeightBit(n: number) {
+export function hammingWeightBit(n: number) {
   let ret: number = 0;
   while (n) {
     n &= (n - 1)
@@ -16,4 +16,3 @@ function hammingWeightBit(n: number) {
   }
   return ret
 }
-console.log(hammingWeightBit(0b11111111111111111111111111111101))
