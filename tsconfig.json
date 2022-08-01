@@ -13,6 +13,6 @@
     "skipLibCheck": true,
     "lib": ["es6", "DOM"]
   },
-  "include": ["src/main.ts", "src/global.d.ts", "src/*/__tests__","src/**/*.ts"],
+  "include": ["src/main.ts", "src/global.d.ts", "src/**/__test__","src/**/*.ts"],
   "exclude": []
 }
